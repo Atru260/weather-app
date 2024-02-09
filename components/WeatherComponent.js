@@ -1,6 +1,6 @@
-import {StyleSheet, Button, Alert, Modal, Pressable, View} from "react-native"
+import {StyleSheet, Button, Alert, Modal, Pressable, View, Image} from "react-native"
 import React, { useState, useEffect } from "react";
-import { Box, FlatList, Center, NativeBaseProvider, Text, Container, Image } from "native-base";
+import { Box, FlatList, Center, NativeBaseProvider, Text, Container } from "native-base";
 
 const KEY = '9b61e2d1fd8833ff2597c650e5c58c3f';
 const UNIT = "metric"
@@ -32,60 +32,112 @@ export default function WeatherComponent({style}){
     useEffect(() => {
       fetchData();
   }, [data]);
-
     return (
-      <NativeBaseProvider>
-        <Center flex={1}>
-        <Box> </Box>
-          {loading && <Box>Loading..</Box>}
-          {!loading && data &&(
-              <Container style={style.container}>
-                    <Modal
-                        animationType="slide"
-                        transparent={true}
-                        visible={modalVisible}
-                        onRequestClose={() => {
-                        Alert.alert('Modal has been closed.');
-                        setModalVisible(!modalVisible);
-                        }}>
-                        <View style={style.centeredView}>
-                        <View style={style.modalView}>
-                          <Text style={style.modalText}>
-                          Humidity: {data.main.humidity} %{"\n"}
-                          Wind: {data.wind.speed} m/s{"\n"}
-                          Pressure: {data.main.pressure} hPa{"\n"}
+
+            <Container>
+              {loading && <Text>Loading..</Text>}
+              {!loading && data &&(
+                  <Container style={style.container}>
+                        <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={modalVisible}
+                            onRequestClose={() => {
+                            Alert.alert('Modal has been closed.');
+                            setModalVisible(!modalVisible);
+                            }}>
+                            <View style={style.centeredView}>
+                            <View style={style.modalView}>
+                              <Text style={style.modalText}>
+                              Humidity: {data.main.humidity} %{"\n"}
+                              Wind: {data.wind.speed} m/s{"\n"}
+                              Pressure: {data.main.pressure} hPa{"\n"}
 
 
 
 
-                          </Text>
-                          <Pressable
-                            style={[style.button, style.buttonClose]}
-                            onPress={() => setModalVisible(!modalVisible)}>
-                            <Text style={style.textStyle}>Close</Text>
-                          </Pressable>
-                        </View>
-                        </View>
-                    </Modal>
+                              </Text>
+                              <Pressable
+                                style={[style.button, style.buttonClose]}
+                                onPress={() => setModalVisible(!modalVisible)}>
+                                <Text style={style.textStyle}>Close</Text>
+                              </Pressable>
+                            </View>
+                            </View>
+                        </Modal>
 
-                  <Text style={style.title}>Current weather for {data.name}</Text>
-                  <Temperature value={data.main.temp} style={style.temperature}/>
-                  <Image source={{uri:"http://openweathermap.org/img/w/"+ data.weather[0].icon + ".png"}} alt={data.weather[0].description} size="xs" />
-                  <Text>{data.weather[0].description}</Text>
-                  <Pressable
-                          style={[style.button, style.buttonOpen]}
-                          onPress={() => setModalVisible(true)}>
-                          <Text style={style.textStyle}>More Data</Text>
-                  </Pressable>
-                  <Text style={style.timestamp}>
-                    Accurate as of {new Date(data.dt * 1000).toLocaleString()} EST
-                  </Text>
-              </Container>
+                      <Text style={style.title}>Current weather for {data.name}</Text>
+                      <Temperature value={data.main.temp} style={style.temperature}/>
+                      <Image source={{uri:"http://openweathermap.org/img/w/"+ data.weather[0].icon + ".png"}} alt={data.weather[0].description} size="xs" />
+                      <Text>{data.weather[0].description}</Text>
+                      <Pressable
+                              style={[style.button, style.buttonOpen]}
+                              onPress={() => setModalVisible(true)}>
+                              <Text style={style.textStyle}>More Data</Text>
+                      </Pressable>
+                      <Text style={style.timestamp}>
+                        Accurate as of {new Date(data.dt * 1000).toLocaleString()}
+                      </Text>
+                  </Container>
 
-          )}
-        </Center>
-      </NativeBaseProvider>
+              )}
+            </Container>
+
     );
+    // return (
+    //
+    //   <NativeBaseProvider>
+    //     <Center flex={1}>
+    //     <Box> </Box>
+    //       {loading && <Box>Loading..</Box>}
+    //       {!loading && data &&(
+    //           <Container style={style.container}>
+    //                 <Modal
+    //                     animationType="slide"
+    //                     transparent={true}
+    //                     visible={modalVisible}
+    //                     onRequestClose={() => {
+    //                     Alert.alert('Modal has been closed.');
+    //                     setModalVisible(!modalVisible);
+    //                     }}>
+    //                     <View style={style.centeredView}>
+    //                     <View style={style.modalView}>
+    //                       <Text style={style.modalText}>
+    //                       Humidity: {data.main.humidity} %{"\n"}
+    //                       Wind: {data.wind.speed} m/s{"\n"}
+    //                       Pressure: {data.main.pressure} hPa{"\n"}
+    //
+    //
+    //
+    //
+    //                       </Text>
+    //                       <Pressable
+    //                         style={[style.button, style.buttonClose]}
+    //                         onPress={() => setModalVisible(!modalVisible)}>
+    //                         <Text style={style.textStyle}>Close</Text>
+    //                       </Pressable>
+    //                     </View>
+    //                     </View>
+    //                 </Modal>
+    //
+    //               <Text style={style.title}>Current weather for {data.name}</Text>
+    //               <Temperature value={data.main.temp} style={style.temperature}/>
+    //               <Image source={{uri:"http://openweathermap.org/img/w/"+ data.weather[0].icon + ".png"}} alt={data.weather[0].description} size="xs" />
+    //               <Text>{data.weather[0].description}</Text>
+    //               <Pressable
+    //                       style={[style.button, style.buttonOpen]}
+    //                       onPress={() => setModalVisible(true)}>
+    //                       <Text style={style.textStyle}>More Data</Text>
+    //               </Pressable>
+    //               <Text style={style.timestamp}>
+    //                 Accurate as of {new Date(data.dt * 1000).toLocaleString()}
+    //               </Text>
+    //           </Container>
+    //
+    //       )}
+    //     </Center>
+    //   </NativeBaseProvider>
+    // );
 }
 //
 

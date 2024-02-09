@@ -1,10 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Box, NativeBaseProvider } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 import React, { useEffect, useState, Component } from 'react';
 import WeatherComponent from './components/WeatherComponent';
 import SettingsComponent from './components/SettingsComponent'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Box, FlatList, Center, NativeBaseProvider, Container, Image } from "native-base";
+
 //import * as React from 'react';
 
 const KEY = '9b61e2d1fd8833ff2597c650e5c58c3f';
@@ -49,6 +51,21 @@ const Settings = () => {
     return <SettingsComponent styles={styles}/>;
 };
 
+const GeoLoc = () => {
+  return (<View style={styles.container}>
+      <Text>Welcome!</Text>
+      <View
+        style={{marginTop: 10, padding: 10, borderRadius: 10, width: '40%'}}>
+        <Button title="Get Location" />
+      </View>
+      <Text>Latitude: </Text>
+      <Text>Longitude: </Text>
+      <View
+        style={{marginTop: 10, padding: 10, borderRadius: 10, width: '40%'}}>
+        <Button title="Send Location" />
+      </View>
+    </View>);
+};
 
 const styles = StyleSheet.create({
     container: {
